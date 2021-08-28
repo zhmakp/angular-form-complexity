@@ -1,0 +1,1 @@
+export const dishes = ['Soup', 'Salat', 'Vareniki'] 

@@ -1,0 +1,1 @@
+export enum ResultType { Success = 'Success', FormInvalid = "Form is not valid" }

@@ -1,0 +1,12 @@
+<form [formGroup]="formGroup">
+  <label class="line">Enter number of items:</label>
+  <input formControlName="numberOfItems" type="number"/>
+  <label class="line">Please select items which you like to order:</label>
+  <div formArrayName="items">
+    <select 
+      *ngFor="let control of itemsFormArray.controls; let i=index" [formControlName]="i">
+      <option [ngValue]="null" disabled>Select dish</option>
+      <option *ngFor="let item of items" [value]="item">{{item}}</option>
+    </select>
+  </div>
+</form>

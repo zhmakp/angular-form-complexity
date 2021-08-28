@@ -1,0 +1,10 @@
+<h3>Lunch order form</h3>
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <input formControlName="name" placeholder="Enter your name">
+  <app-select class="line" control="type" placeholder="Select order type" [collection]="orderTypes"></app-select>
+  <address [formGroup]="orderForm.controls.address" *ngIf="isDelivery$ | async"></address>
+  <pre-order [formGroup]="orderForm.controls.preOrderForm"></pre-order>
+  <app-select class="line" control="paymentMethod" placeholder="Select payment method" [collection]="paymentMethods"></app-select>
+  <button>Submit</button>
+  <p data-testid="result">{{result}}</p>
+</form>
