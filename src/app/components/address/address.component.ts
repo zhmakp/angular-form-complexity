@@ -8,11 +8,11 @@ import { address, City } from './address.mock';
   selector: 'address',
   template: `
   <form [formGroup]="formGroup">
-    <app-select control="city" placeholder="Select your city" [collection]="cities">
+    <app-select control="city" placeholder="Select city" [collection]="cities">
     </app-select>
-    <app-select control="street" placeholder="Select your street" [collection]="streets$ | async">
+    <app-select control="street" placeholder="Select street" [collection]="streets$ | async">
     </app-select>
-    <input formControlName="houseNumber" placeholder="Enter yout house number">
+    <input formControlName="houseNumber" placeholder="Enter house number">
   </form>
   `
 })

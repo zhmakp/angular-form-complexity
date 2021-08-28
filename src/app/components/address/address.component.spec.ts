@@ -35,10 +35,10 @@ describe('AddressComponent with spectator', () => {
     const city = address.cities[0];
     const expected = address.retrieveStreet(city);
 
-    const citySelect = selectByPlaceholder('Enter yout city');
+    const citySelect = selectByPlaceholder('Select city');
     spectator.selectOption(citySelect, address.cities[0]);
 
-    const streetsSelect = selectByPlaceholder('Enter yout street');
+    const streetsSelect = selectByPlaceholder('Select street');
     const actual = getSelectOptions(streetsSelect);
     expect(actual).toEqual(expected);
   })
