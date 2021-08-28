@@ -1,6 +1,6 @@
 import { PaymentMethod } from './models/payment-method.model';
 import { Component } from "@angular/core";
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 import { defer, Observable } from "rxjs";
 import { delay, map, shareReplay, tap } from "rxjs/operators";
 import { OrderType } from "./models/order-type.model";
@@ -36,9 +36,19 @@ export class AppComponent {
     address: new FormControl(null),
   });
 
+  validate = (control: string, validators: ValidatorFn | ValidatorFn[]) => (enable: boolean) => {
+    if (enable) {
+      this.orderForm.get(control).setValidators(validators);
+    } else {
+      this.orderForm.get(control).clearValidators();
+    }
+    this.orderForm.get(control).updateValueAndValidity();
+  }
+
   isDelivery$ = defer(() => this.orderForm.get("type").valueChanges.pipe(
     map((type: string) => type === OrderType.Delivery),
     tap(this.updateFormControl('address', this.createAddressFormGroup())),
+    tap(this.validate('paymentMethod', [Validators.required]))
   ));
 
   createAddressFormGroup() {

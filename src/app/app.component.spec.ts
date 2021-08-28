@@ -1,3 +1,4 @@
+import { AddressComponent } from './components/address/address.component';
 import { OrderType } from './models/order-type.model';
 import { PreOrderComponent } from './components/pre-order/pre-order.component';
 import { byTestId, byText, createComponentFactory, Spectator } from '@ngneat/spectator';
@@ -12,7 +13,7 @@ describe('AppComponent with spectator', () => {
 
   const createComponent = createComponentFactory({
     component: AppComponent,
-    declarations: [AppSelectComponent, MockComponent(PreOrderComponent)],
+    declarations: [AppSelectComponent],
     imports: [ReactiveFormsModule]
   });
 
@@ -24,13 +25,10 @@ describe('AppComponent with spectator', () => {
     expect(spectator.query(byTestId('result'))).toHaveText(ResultType.FormInvalid);
   })
   
-  it('should show pre order form on select pre order type', () => {
-    const expected = OrderType.PreOrder;
-
-    const orderTypeSelect = spectator.query(byText('Select order type')).parentNode as HTMLSelectElement;
-    spectator.selectOption(orderTypeSelect, expected);
+  it('should show address form on select delivery type', () => {
+    const orderTypeSelect = spectator.query(byTestId('orderTypes')).firstChild as HTMLSelectElement;
+    spectator.selectOption(orderTypeSelect, OrderType.Delivery);
     
-    expect(spectator.component.orderForm.get('type').value).toEqual(expected)
-    expect(ngMocks.find(PreOrderComponent)?.componentInstance).toBeDefined()
+    expect(spectator.query(AddressComponent)).toBeDefined()
   })
 });
